@@ -26,11 +26,10 @@ export class CardComponent implements OnInit, OnDestroy {
       .subscribe(card => {
         this.card = card;
       });
+
     const serviceCard = this.stateService.card$.getValue();
-    if (!serviceCard || !serviceCard.imageUrl) {
-      this.cardService.loadCard(id);
-    }
     this.cardService.$card.next(serviceCard);
+    this.cardService.loadCard(id);
   }
 
   ngOnDestroy() {
