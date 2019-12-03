@@ -1,0 +1,9 @@
+<p>
+  <a [routerLink]="['/']">Back to search</a>
+</p>
+
+<ng-container *ngIf="card">
+  <h2>{{ card?.name }}</h2>
+
+  <img [src]="card?.imageUrl">
+</ng-container>

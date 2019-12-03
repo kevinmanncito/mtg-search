@@ -1,0 +1,13 @@
+<p>
+  <label for="search">Enter the card name you want to search for</label>
+</p>
+
+<p>
+  <input id="search" type="text" [formControl]="searchFormControl">
+</p>
+
+<ul>
+  <li *ngFor="let result of searchResults">
+    <a [routerLink]="['/card', result.multiverseid]" (click)="stateService.setCard(result)">{{ result.name }}</a>
+  </li>
+</ul>
