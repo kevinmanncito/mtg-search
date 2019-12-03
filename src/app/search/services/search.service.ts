@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class SearchService {
 
   public $searchResults = new BehaviorSubject<any[]>([]);
+  public searchTerm = '';
 
   constructor(private http: HttpClient) { }
 
@@ -15,9 +16,15 @@ export class SearchService {
       this.$searchResults.next([]);
       return;
     }
-    this.http.get(`https://api.magicthegathering.io/v1/cards?name=${searchTerm}`).subscribe((results: any) => {
-      const { cards = [] } = results;
-      this.$searchResults.next(cards);
-    });
+    this.searchTerm = searchTerm;
+    this.http.get(`https://api.magicthegathering.io/v1/cards?name=${searchTerm}`)
+      .subscribe((results: any) => {
+        const { cards = [] } = results;
+        this.$searchResults.next(cards);
+      });
+  }
+
+  clearResults() {
+    this.$searchResults.next([]);
   }
 }

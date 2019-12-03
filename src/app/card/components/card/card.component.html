@@ -2,8 +2,12 @@
   <a [routerLink]="['/']">Back to search</a>
 </p>
 
+<div *ngIf="!card">
+  <mat-spinner></mat-spinner>
+</div>
+
 <ng-container *ngIf="card">
   <h2>{{ card?.name }}</h2>
 
-  <img [src]="card?.imageUrl">
+  <img *ngIf="card?.imageUrl" [src]="card?.imageUrl">
 </ng-container>

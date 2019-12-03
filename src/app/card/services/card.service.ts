@@ -18,8 +18,4 @@ export class CardService {
         this.$card.next(card);
       });
   }
-
-  setCard(cardData: any) {
-    this.$card.next(cardData);
-  }
 }

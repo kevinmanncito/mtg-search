@@ -1,13 +1,17 @@
 <p>
-  <label for="search">Enter the card name you want to search for</label>
+  <mat-form-field class="wide-input" appearance="outline">
+    <mat-label>Search for your card here</mat-label>
+    <input matInput placeholder="Card name" [formControl]="searchFormControl">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
 </p>
 
-<p>
-  <input id="search" type="text" [formControl]="searchFormControl">
-</p>
+<div *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
 
-<ul>
-  <li *ngFor="let result of searchResults">
+<mat-list>
+  <mat-list-item *ngFor="let result of searchResults">
     <a [routerLink]="['/card', result.multiverseid]" (click)="stateService.setCard(result)">{{ result.name }}</a>
-  </li>
-</ul>
+  </mat-list-item>
+</mat-list>
