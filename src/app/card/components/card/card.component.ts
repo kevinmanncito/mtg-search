@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, takeWhile } from 'rxjs/operators';
+import {debounce, filter, takeWhile} from 'rxjs/operators';
 
 import { CardService } from '../../services/card.service';
 import { SharedStateService } from '../../../services/shared-state.service';
@@ -26,11 +26,11 @@ export class CardComponent implements OnInit, OnDestroy {
       .subscribe(card => {
         this.card = card;
       });
-
-    this.card = this.stateService.card$.getValue();
-    if (!this.card || !this.card.imageUrl) {
+    const serviceCard = this.stateService.card$.getValue();
+    if (!serviceCard || !serviceCard.imageUrl) {
       this.cardService.loadCard(id);
     }
+    this.cardService.$card.next(serviceCard);
   }
 
   ngOnDestroy() {
