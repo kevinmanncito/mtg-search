@@ -21,7 +21,14 @@ export class CardComponent implements OnInit, OnDestroy {
     this.cardService.$card
       .pipe(
         takeWhile(() => this.alive),
-        filter(card => !!card)
+        filter(card => !!card),
+        filter(card => {
+          try {
+            return card.multiverseid === parseInt(id, 10);
+          } catch (e) {
+            return false;
+          }
+        })
       )
       .subscribe(card => {
         this.card = card;
